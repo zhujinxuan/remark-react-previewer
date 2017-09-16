@@ -1,0 +1,33 @@
+{
+  "name": "remark-react-previewer",
+  "version": "1.0.0",
+  "description": "Markdown Previewer supporting Auto-scroll, based on React and remark",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "React",
+    "remark",
+    "markdown",
+    "auto-scroll"
+  ],
+  "author": "Jinxuan Zhu <zhujinxuan@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mdast-util-definitions": "^1.2.2",
+    "unist-find-node": "^1.0.0",
+    "vfile": "^2.2.0",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.8.2"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "remark": "^8.0.0",
+    "remark-parse": "^4.0.0",
+    "mergestate": "^1.0.2",
+    "unified": "^6.1.5"
+  }
+}
