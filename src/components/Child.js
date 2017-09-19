@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import keyGen from "./keyGen.js";
 import VDOMs from "./vdoms/index.js";
 
 // @node, node
@@ -18,32 +17,49 @@ function createChildComponent(compile) {
     }
     render() {
       let vdom = mapNodeToVDOMRoot(this.props);
-      let props = {
-        ...vdom.props,
-        key: keyGen(this.props.node)
+      let parentProps = {
+        style: {},
+        ...vdom.props
       };
-      let children = props.node.children.map(child =>
-        compile({ node: child, ...this.props })
-      );
+      if (this.state.scrolled) {
+        parentProps.style = Object.assign(
+          {},
+          parentProps.style,
+          this.props.styles.scrolled
+        );
+        parentProps = { ...parentProps, ref: this.props.setScroll };
+      }
+
+      let children = null;
+      if (this.props.node.children) {
+        children = this.props.node.children.map(child =>
+          compile({ ...this.props, node: child })
+        );
+      }
+
       if (vdom.before) {
         children = [vdom.before, ...children];
       }
-      return React.createElement(vdom.tag, props, children);
+
+      return React.createElement(vdom.tag, parentProps, children);
     }
   };
 }
 
 function mapNodeToVDOMRoot(props) {
-  let vdom = VDOMs[props.node.type];
-  let { tag, before, style } = vdom.tag;
+  let vdom = VDOMs[props.node.type](props);
   let newProps = {
-    style: Object.assign({}, props.styles[vdom.tag], style)
+    style: Object.assign({}, props.styles[vdom.tag], vdom.style)
   };
-  return Object.assign({}, { tag, before }, { props: newProps });
+  return {
+    ...vdom,
+    node: props.node,
+    props: { ...newProps, ...vdom.props }
+  };
 }
 
 function isVDom(props) {
-  return VDOMs[props.node.type] === undefined;
+  return VDOMs[props.node.type] !== undefined;
 }
 
 export default createChildComponent;

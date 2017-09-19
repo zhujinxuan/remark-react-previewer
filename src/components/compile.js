@@ -1,25 +1,23 @@
 import keyGen from "./keyGen.js";
 import React from "react";
-import createChildComponent, { isVDOM } from "./Child.js";
+import createChildComponent, { isVDom } from "./Child.js";
 
 const InlineNodes = {
   text: props => props.node.value,
-  InlineCode: props => (
+  inlineCode: props => (
     <code key={keyGen(props.node)} style={props.styles.code}>
       props.node.value
     </code>
   ),
   YAML: props => null,
   HTML: props => null,
-  ThematicBreak: props => (
+  thematicBreak: props => (
     <hr key={keyGen(props.node)} style={props.styles.hr} />
   ),
-  Break: props => <br />,
-  LinkReference: props => null,
-  ImageReference: props => null,
-  FootnoteReference: props => null,
-  Definition: props => null,
-  FootnoteDefinition: props => null
+  break: props => <br />,
+  footnoteReference: props => null,
+  definition: props => null,
+  footnoteDefinition: props => null
 };
 
 function renderInline(props) {
@@ -41,8 +39,8 @@ function compile(props) {
   if (node.type === "paragraph") {
     return node.children.map(child => compile({ ...props, node: child }));
   }
-  if (isVDOM(props)) {
-    return <Child {...props} />;
+  if (isVDom(props)) {
+    return <Child key={keyGen(props.node)} {...props} />;
   }
   return null;
 }

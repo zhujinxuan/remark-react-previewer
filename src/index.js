@@ -3,20 +3,20 @@ import remarkParse from "remark-parse";
 import unified from "unified";
 import findNode from "unist-find-node";
 
-import Root from "./components/root.js";
+import Root from "./components/Root.js";
 import PropTypes from "prop-types";
 import normalizeMDAST from "./normalize.js";
 import defaultStyles from "./defaultStyles.js";
 import mergeState from "mergeState";
 
 class Previewer extends Component {
-  static propTypes = {
+  static propTypes: {
     cursorPosition: PropTypes.object,
     markdown: PropTypes.string,
     unChanged: PropTypes.bool,
     styles: PropTypes.object
   };
-  static defaultProps = {
+  static defaultProps: {
     unChanged: false,
     styles: defaultStyles
   };
@@ -32,7 +32,7 @@ class Previewer extends Component {
     this.constructMDAST(props);
     this.getDefinition = this.getDefinition.bind(this);
 
-    this.refs = {
+    this.ref = {
       main: null,
       scroll: null
     };
@@ -60,10 +60,10 @@ class Previewer extends Component {
   }
 
   setScroll(ref) {
-    this.refs.scroll = ref;
+    this.ref.scroll = ref;
   }
   setMain(ref) {
-    this.refs.main = ref;
+    this.ref.main = ref;
   }
   componentWillReceiveProps(nextProps) {
     if (!nextProps.unChanged && nextProps.markdown !== this.props.markdown) {
@@ -78,10 +78,15 @@ class Previewer extends Component {
     }
   }
   autoScroll() {
-    let { main, ref } = this.refs;
-    main.scrollTop = ref.offsetTop;
+    let { main, scroll } = this.ref;
+
+    if (scroll) {
+      let scrollTop = scroll.offsetTop - 40;
+      main.scrollTop = scrollTop > 0 ? scrollTop : 0;
+    }
   }
   componentDidMount() {
+    console.log("Mount");
     this.autoScroll();
   }
   componentDidUpdate() {
@@ -96,7 +101,7 @@ class Previewer extends Component {
     return (
       <Root
         mdast={this.propsState.mdast}
-        cursorNode={null}
+        cursorNode={this.propsState.scrollNode}
         styles={styles}
         setScroll={this.setScroll}
         setMain={this.setMain}
