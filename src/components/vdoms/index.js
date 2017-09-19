@@ -8,6 +8,7 @@ const heading = {
 const paragraph = {
   outlineParagraph: props => ({ tag: "p" })
 };
+
 const list = {
   list: props => ({ tag: props.node.ordered ? "ol" : "ul" }),
   listItem: props => {

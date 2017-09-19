@@ -1,7 +1,12 @@
 ## Usage
 ```js
 <Previewer
-    cursorPosition = {start, end}
+    cursorPosition = {line, column}
     markdown = {string}
     />
 ```
+
+## Demo
+On working
+
+
