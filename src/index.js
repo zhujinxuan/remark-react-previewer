@@ -13,11 +13,9 @@ class Previewer extends Component {
   static propTypes: {
     cursorPosition: PropTypes.object,
     markdown: PropTypes.string,
-    unChanged: PropTypes.bool,
     styles: PropTypes.object
   };
   static defaultProps: {
-    unChanged: false,
     styles: defaultStyles
   };
 
@@ -66,7 +64,7 @@ class Previewer extends Component {
     this.ref.main = ref;
   }
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.unChanged && nextProps.markdown !== this.props.markdown) {
+    if (nextProps.markdown !== this.props.markdown) {
       this.constructMDAST();
     }
     this.propsState.scrollNode = findNode(
