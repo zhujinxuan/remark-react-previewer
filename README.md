@@ -10,15 +10,20 @@ This previewer solves that problem by `unist` and `remark`.
     />
 ```
 For customizing styles, you could use css or pass an `styles:{tagName:cssInJS}` to props.  
-  - `props.styles` CSS in JS like [http://formidable.com/open-source/radium/](Radium) to style elements.  
+
+- `props.styles` CSS in JS like [Radium](http://formidable.com/open-source/radium/) to style elements.  
   `props.styles` should be a nested Object like `props.styles = {tagName: cssInJS}`, where the `tagName`
-  is the tagName like `li`, `h1`, `root` for the root `div`, or `scrolled` for the cursor matched element.
+  is 
+  1. `li`, `h1` and other html tags
+  2. `root` for the root `div`
+  3. `scrolled` for the cursor matched element.
 
 ## Demo
 On working
 
 ## On the Plan 
  - [ ] FootNote Support
+ - [ ] Clever Scroll for Code and Blockquote 
  - [ ] Editor Support as neovim-extension.
  - [ ] After Editor Support, A greasemonkey plugin for render markdown in rich-text editors like in quora and zhihu.
 
