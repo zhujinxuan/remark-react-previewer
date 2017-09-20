@@ -1,12 +1,15 @@
 const defaultStyles = {
   root: {
     boxSizing: "border-box",
-    backgroundColor: "white",
     overflow: "scroll",
-    width: "40%"
+    display: "inline-block",
+    height: "100%"
   },
   scrolled: {
-    backgroundColor: "yellow"
+    backgroundColor: "#ADD9E6"
+  },
+  img: {
+    maxWidth: "70%"
   }
 };
 export default defaultStyles;

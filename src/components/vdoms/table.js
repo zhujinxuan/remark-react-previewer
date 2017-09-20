@@ -2,9 +2,15 @@ import React, { Component } from "react";
 
 class TableRoot extends Component {
   render() {
+    let { key, style, styles } = this.props;
+
     return (
-      <table {...this.props}>
-        <tbody>{this.props.children}</tbody>
+      <table
+        ref={this.props.refDOM}
+        key={key}
+        style={{ ...styles.table, ...style }}
+      >
+        <tbody style={styles.tbody}>{this.props.children}</tbody>
       </table>
     );
   }

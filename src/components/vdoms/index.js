@@ -13,7 +13,7 @@ const list = {
   list: props => ({ tag: props.node.ordered ? "ol" : "ul" }),
   listItem: props => {
     let result = { tag: "li" };
-    if (props.node.checked !== undefined) {
+    if (props.node.checked === true || props.node.checked === false) {
       let checkBoxProps = {
         key: "checkbox",
         type: "checkbox",
@@ -32,17 +32,18 @@ const image = {
     props: {
       alt: props.node.alt,
       title: props.node.title,
-      href: props.node.url
+      src: props.node.url
     }
   }),
-  ImageReference: props => {
-    let definitionNode = props.getDefinition[props.node.identifier];
+  imageReference: props => {
+    let definitionNode = props.getDefinition(props.node.identifier);
+    console.log(definitionNode.url);
     return {
       tag: "img",
       props: {
         alt: props.node.alt,
-        title: definitionNode.title,
-        href: definitionNode.url
+        title: definitionNode ? definitionNode.title : null,
+        src: definitionNode ? definitionNode.url : null
       }
     };
   }
@@ -58,12 +59,11 @@ const link = {
   }),
   linkReference: props => {
     let definitionNode = props.getDefinition(props.node.identifier);
-    console.log(definitionNode);
     return {
       tag: "a",
       props: {
-        title: definitionNode.title,
-        href: definitionNode.url
+        title: definitionNode ? definitionNode.title : null,
+        href: definitionNode ? definitionNode.url : null
       }
     };
   }

@@ -2,10 +2,19 @@ import React, { Component } from "react";
 
 class CodeRoot extends Component {
   render() {
-    let { ref, key } = this.props;
+    let { key, style, styles } = this.props;
     return (
-      <pre {...{ ref, key }}>
-        <code className={"hljs " + this.props.lang}>{this.props.value}</code>
+      <pre
+        ref={this.props.refDOM}
+        key={key}
+        style={{ ...styles.pre, ...style }}
+      >
+        <code
+          style={this.props.styles.code}
+          className={"hljs " + this.props.lang}
+        >
+          {this.props.value}
+        </code>
       </pre>
     );
   }

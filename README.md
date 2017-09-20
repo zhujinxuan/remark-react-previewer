@@ -18,6 +18,7 @@ For customizing styles, you could use css or pass an `styles:{tagName:cssInJS}` 
   2. `root` for the root `div`
   3. `scrolled` for the cursor matched element.
 
+
 ## Demo
 On working
 

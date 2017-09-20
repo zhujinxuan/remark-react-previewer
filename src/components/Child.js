@@ -21,13 +21,28 @@ function createChildComponent(compile) {
         style: {},
         ...vdom.props
       };
+
       if (this.state.scrolled) {
         parentProps.style = Object.assign(
           {},
           parentProps.style,
           this.props.styles.scrolled
         );
-        parentProps = { ...parentProps, ref: this.props.setScroll };
+        if (typeof vdom.tag === "string") {
+          parentProps = {
+            ...parentProps,
+            ref: this.props.setScroll
+          };
+        } else {
+          parentProps = {
+            ...parentProps,
+            refDOM: this.props.setScroll
+          };
+        }
+      }
+
+      if (typeof vdom.tag !== "string") {
+        parentProps = { ...parentProps, styles: this.props.styles };
       }
 
       let children = null;
@@ -48,9 +63,11 @@ function createChildComponent(compile) {
 
 function mapNodeToVDOMRoot(props) {
   let vdom = VDOMs[props.node.type](props);
+
   let newProps = {
     style: Object.assign({}, props.styles[vdom.tag], vdom.style)
   };
+
   return {
     ...vdom,
     node: props.node,

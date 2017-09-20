@@ -10,15 +10,6 @@ import defaultStyles from "./defaultStyles.js";
 import mergeState from "mergeState";
 
 class Previewer extends Component {
-  static propTypes: {
-    cursorPosition: PropTypes.object,
-    markdown: PropTypes.string,
-    styles: PropTypes.object
-  };
-  static defaultProps: {
-    styles: defaultStyles
-  };
-
   constructor(props) {
     super(props);
     this.propsState = {
@@ -41,7 +32,7 @@ class Previewer extends Component {
   constructMDAST(props) {
     let mdast = unified()
       .use(remarkParse)
-      .parse(this.props.markdown);
+      .parse(props.markdown);
     let { definitions } = normalizeMDAST(mdast);
     this.propsState.definitions = definitions;
     this.propsState.mdast = mdast;
@@ -49,7 +40,10 @@ class Previewer extends Component {
       this.propsState.mdast,
       this.props.cursorPosition
     );
-    if (this.propsState.scrollNode.type === "root") {
+    if (
+      this.propsState.scrollNode &&
+      this.propsState.scrollNode.type === "root"
+    ) {
       this.propsState.scrollNode = null;
     }
   }
@@ -65,26 +59,32 @@ class Previewer extends Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.markdown !== this.props.markdown) {
-      this.constructMDAST();
-    }
-    this.propsState.scrollNode = findNode(
-      this.propsState.mdast,
-      nextProps.cursorPosition
-    );
-    if (this.propsState.scrollNode.type === "root") {
-      this.propsState.scrollNode = null;
+      this.constructMDAST(nextProps);
+    } else {
+      this.propsState.scrollNode = findNode(
+        this.propsState.mdast,
+        nextProps.cursorPosition
+      );
+      if (
+        this.propsState.scrollNode &&
+        this.propsState.scrollNode.type === "root"
+      ) {
+        this.propsState.scrollNode = null;
+      }
     }
   }
   autoScroll() {
     let { main, scroll } = this.ref;
 
     if (scroll) {
-      let scrollTop = scroll.offsetTop - 40;
+      let scrollTop =
+        absoluteOffsetTop(scroll) -
+        absoluteOffsetTop(main) +
+        this.props.offsetTop;
       main.scrollTop = scrollTop > 0 ? scrollTop : 0;
     }
   }
   componentDidMount() {
-    console.log("Mount");
     this.autoScroll();
   }
   componentDidUpdate() {
@@ -108,5 +108,24 @@ class Previewer extends Component {
     );
   }
 }
+function absoluteOffsetTop(dom, h = 0) {
+  if (dom && dom.offsetParent) {
+    return absoluteOffsetTop(dom.offsetParent, h + dom.offsetTop);
+  }
+  return h;
+}
+
+Previewer.propTypes = {
+  cursorPosition: PropTypes.object,
+  markdown: PropTypes.string,
+  styles: PropTypes.object,
+  offsetTop: PropTypes.number
+};
+
+Previewer.defaultProps = {
+  styles: defaultStyles,
+  cursorPosition: { line: 1, column: 1 },
+  offsetTop: -50
+};
 
 export default Previewer;

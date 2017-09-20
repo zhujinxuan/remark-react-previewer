@@ -6,15 +6,19 @@ const InlineNodes = {
   text: props => props.node.value,
   inlineCode: props => (
     <code key={keyGen(props.node)} style={props.styles.code}>
-      props.node.value
+      {props.node.value}
     </code>
   ),
   YAML: props => null,
   HTML: props => null,
   thematicBreak: props => (
-    <hr key={keyGen(props.node)} style={props.styles.hr} />
+    <hr
+      key={keyGen(props.node)}
+      style={props.styles.hr}
+      ref={props.node === props.cursorNode ? props.setScroll : null}
+    />
   ),
-  break: props => <br />,
+  break: props => <br key={keyGen(props.node)} />,
   footnoteReference: props => null,
   definition: props => null,
   footnoteDefinition: props => null
@@ -39,6 +43,11 @@ function compile(props) {
   if (node.type === "paragraph") {
     return node.children.map(child => compile({ ...props, node: child }));
   }
+
+  if (props.node.type === "ImageReference") {
+    console.log(isVDom(props));
+  }
+
   if (isVDom(props)) {
     return <Child key={keyGen(props.node)} {...props} />;
   }
