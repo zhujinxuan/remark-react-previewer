@@ -1,10 +1,11 @@
 {
   "name": "remark-react-previewer",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "Markdown Previewer supporting Auto-scroll, based on React and remark",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "npm run test"
+    "babel-prepublish": "babel src/ -d lib",
+    "prepublish": "npm run babel-prepublish"
   },
   "keywords": [
     "React",
