@@ -2,6 +2,9 @@
 A problem of most online markdown previewer is simply that the previewer does not follow the cursor.  
 This previewer solves that problem by `unist` and `remark`.
 
+## Demo
+See [Demo at github pages](https://zhujinxuan.github.io/remark-react-previewer/)
+
 ## Usage
 ```js
 <Previewer
@@ -19,8 +22,6 @@ For customizing styles, you could use css or pass an `styles:{tagName:cssInJS}` 
   3. `scrolled` for the cursor matched element.
 
 
-## Demo
-See [Demo at github pages](https://zhujinxuan.github.io/remark-react-previewer/)
 
 ## On the Plan 
 -  [ ] Passing a callback function for smoothie scroll~
