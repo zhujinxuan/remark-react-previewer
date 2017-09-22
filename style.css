@@ -1,0 +1,24 @@
+html, body {
+  height: 100%;
+}
+body> div {
+  margin: 0 top;
+  height:92%;
+  width:100%;
+}
+body> div> div {
+  height:100%;
+}
+
+textarea {
+  font-size: 1.5rem;
+  height: 100%;
+}
+
+header {
+  height:8%;
+  background-color: #e90;
+  width: 100%;
+  text-align:center;
+  vertical-align:center;
+}
