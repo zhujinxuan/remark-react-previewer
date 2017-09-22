@@ -1,4 +1,4 @@
-# Hello, this is the markdown Previewer with 
+# Hello, 
 
 This is the demo of
 [remark-react-previewer](https://github.com/zhujinxuan/remark-react-previewer),

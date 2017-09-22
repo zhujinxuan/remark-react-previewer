@@ -37,7 +37,6 @@ const image = {
   }),
   imageReference: props => {
     let definitionNode = props.getDefinition(props.node.identifier);
-    console.log(definitionNode.url);
     return {
       tag: "img",
       props: {

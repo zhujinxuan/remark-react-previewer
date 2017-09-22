@@ -18,14 +18,14 @@ class Editor extends Component {
 
   render() {
     return (
-      <div style={{ height: "600px" }}>
+      <div>
         <TA
           value={this.state.value}
           position={this.state.position}
           onChange={this.handleTextAreaChange}
         />
         <Previewer
-          styles={{ root: { width: "40%" } }}
+          styles={{ root: { width: "50%", display: "inline-block" } }}
           markdown={this.state.value}
           cursorPosition={this.state.position}
         />
@@ -36,7 +36,7 @@ class Editor extends Component {
 
 const textAreaStyle = {
   backgroundColor: "#282828",
-  width: "40%",
+  width: "50%",
   height: "100%",
   color: "white",
   display: "inline-block"

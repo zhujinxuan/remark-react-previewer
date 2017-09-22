@@ -20,9 +20,10 @@ For customizing styles, you could use css or pass an `styles:{tagName:cssInJS}` 
 
 
 ## Demo
-On working
+See [Demo at github pages](https://zhujinxuan.github.io/remark-react-previewer/)
 
 ## On the Plan 
+-  [ ] Passing a callback function for smoothie scroll~
  - [ ] FootNote Support
  - [ ] Clever Scroll for Code and Blockquote 
  - [ ] Editor Support as neovim-extension.

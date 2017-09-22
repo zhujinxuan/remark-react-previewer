@@ -7,7 +7,7 @@ import Root from "./components/Root.js";
 import PropTypes from "prop-types";
 import normalizeMDAST from "./normalize.js";
 import defaultStyles from "./defaultStyles.js";
-import mergeState from "mergeState";
+import mergeState from "mergestate";
 
 class Previewer extends Component {
   constructor(props) {
