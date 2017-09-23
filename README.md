@@ -1,4 +1,4 @@
-# A markdown Previewer Supporting Auto-Scroll
+# A markdown Previewer Component Supporting Auto-Scroll
 A problem of most online markdown previewer is simply that the previewer does not follow the cursor.  
 This previewer solves that problem by `unist` and `remark`.
 
